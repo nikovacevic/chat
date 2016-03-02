@@ -2,6 +2,7 @@ var http = require('http'),
     fs = require('fs'),
     path = require('path'),
     mime = require('mime'),
+    moment = require('moment'),
     colors = require('colors'),
     cache = {},
     server;
@@ -10,6 +11,13 @@ var http = require('http'),
 server = http.createServer(function (req, resp) {
   var filePath = false,
       absPath;
+  
+  // Log request
+  console.log(
+    moment().format()
+    + '\t' + colors.red(req.method)
+    + '\t' + colors.red(req.url)
+  );
 
   // Define routes
   if (req.url == '/') {
@@ -60,17 +68,21 @@ function serveStatic(resp, cache, absPath) {
   }
   // Find in filesystem and send content
   fs.exists(absPath, function(exists) {
-    if (exists) {
-      fs.readFile(absPath, function(err, data) {
-        // File not found: 404
-        if (err) {
-          send404(resp);
-          return;
-        }
-        // File found: cache and send
-        cache[absPath] = data;
-        sendFile(resp, absPath, data);
-      });
+    // File not found: 404
+    if (!exists) {
+      send404(resp);
+      return;
     }
+    // File exists: serve it.
+    fs.readFile(absPath, function(err, data) {
+      if (err) {
+        console.log("Sending 404");
+        send404(resp);
+        return;
+      }
+      // File found: cache and send
+      cache[absPath] = data;
+      sendFile(resp, absPath, data);
+    });
   });
 }

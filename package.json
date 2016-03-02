@@ -6,7 +6,8 @@
     "start": "clear & node server.js"
   },
   "dependencies": {
-    "socket.io": "~0.9.6",
-    "mime": "~1.2.7"
+    "mime": "~1.2.7",
+    "moment": "^2.11.2",
+    "socket.io": "~0.9.6"
   }
 }
