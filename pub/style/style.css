@@ -1,0 +1,58 @@
+/**
+ * Style for Chat
+ */
+
+body {
+  padding: 50px;
+  font: 14px "Lucidia Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#content {
+  width: 800px;
+  margin: 0 auto;
+}
+
+#room {
+  background-color: #DDDDDD;
+  margin: 1em;
+}
+
+#messages {
+  width: 690px;
+  height: 300px;
+  overflow: auto;
+  background-color: #EEEEEE;
+  margin-bottom: 1em;
+  margin-right: 10px;
+}
+
+#room-list {
+  float: right;
+  width: 100px;
+  height: 300px;
+  overflow: auto;
+}
+
+#room-list div {
+  border-bottom: 1px solid #EEEEEE;
+}
+
+#room-list div:hover {
+  cursor: pointer;
+  background-color: #DDDDDD;
+}
+
+#send-message {
+  width: 700px;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+#help {
+  font: 10px "Lucidia Grande", Helvetica, Arial, sans-serif;
+}
+

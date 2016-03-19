@@ -4,6 +4,7 @@ var http = require('http'),
     mime = require('mime'),
     moment = require('moment'),
     colors = require('colors'),
+    chat_server = require('./lib/chat_server'),
     cache = {},
     server;
 
@@ -36,6 +37,9 @@ server.listen(3000, function () {
   console.log('Server listening on port ' + colors.green('3000'));
 });
 
+// Start chat server
+chat_server.listen(server);
+
 /**
  * send404 sends an HTTP not found response.
  */
@@ -51,7 +55,7 @@ function send404(resp) {
 function sendFile(resp, filePath, fileContents) {
   resp.writeHead(
       200,
-      { 'ContentType': mime.lookup(path.baseName(filePath)) }
+      { 'ContentType': mime.lookup(path.basename(filePath)) }
   );
   resp.end(fileContents);
 }
