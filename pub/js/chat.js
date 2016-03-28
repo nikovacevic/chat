@@ -18,23 +18,23 @@ Chat.prototype.changeRoom = function (room) {
 
 Chat.prototype.processCommand = function (command) {
   var tokens = command.split(' '),
-      words = tokens[0]
-              .substring(1, words[0].length)
+      command = tokens[0]
+              .substring(1, tokens[0].length)
               .toLowerCase(),
       message = false;
 
   switch (command) {
     case 'join':
       var room;
-      words.shift();
-      room = words.join(' ');
+      tokens.shift();
+      room = tokens.join(' ');
       this.changeRoom(room);
       break;
 
     case 'name':
       var name;
-      words.shift();
-      name = words.join(' ');
+      tokens.shift();
+      name = tokens.join(' ');
       this.socket.emit('nameAttempt', name);
       break;
 

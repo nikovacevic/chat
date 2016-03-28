@@ -10,7 +10,7 @@ function processUserInput(chatApp, socket) {
   var message = $('#send-message').val(),
       systemMessage;
 
-  if (message.chatAt(0) == '/') {
+  if (message.charAt(0) == '/') {
     // Process message as a command
     systemMessage = chatApp.processCommand(message);
     if (systemMessage) {
@@ -20,7 +20,7 @@ function processUserInput(chatApp, socket) {
     // Process message as a message
     chatApp.sendMessage($('#room').text(), message);
     $('#messages').append(divEscapedContentElement(message));
-    $('#messages'),scrollTop($('#messages').prop('scrollHeight'));
+    $('#messages').scrollTop($('#messages').prop('scrollHeight'));
   }
 
   $('#send-message').val('');
@@ -51,7 +51,7 @@ $(document).ready(function () {
 
   // Render new message
   socket.on('message', function (message) {
-    $('#messages').append(divEscapedContentElement(newMessage));
+    $('#messages').append(divEscapedContentElement(message.text));
   });
 
   // Render room listing command
@@ -79,7 +79,8 @@ $(document).ready(function () {
   $('#send-message').focus();
 
   // Process form
-  $('#send-form').submit(function () {
+  $('#send-form').submit(function (e) {
+    e.preventDefault();
     processUserInput(chatApp, socket);
     return false;
   });
